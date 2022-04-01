@@ -2,19 +2,23 @@ import 'dotenv/config';
 import { HttpsProxyAgent } from 'hpagent';
 import fetch from 'node-fetch';
 import { zyteAgent } from './zyte-agent';
-import { User } from '../plug';
 import UserAgent from 'user-agents';
+
+interface User {
+  sessionId?: string;
+  [key: string]: unknown;
+}
 
 export default class ZyteClient {
   agent: HttpsProxyAgent;
-  sessionId: string;
+  sessionId: string | undefined;
   user: User;
   userAgent: string;
 
   constructor(user?: User) {
     this.agent = zyteAgent;
-    this.user = user;
-    this.sessionId = user?.sessionId;
+    this.user = user || { sessionId: undefined };
+    this.sessionId = this.user.sessionId;
     this.userAgent = new UserAgent({ deviceCategory: 'desktop' }).toString();
   }
 
@@ -41,7 +45,7 @@ export default class ZyteClient {
     return this.sessionId;
   }
 
-  async get(url: string, options?: any) {
+  async get(url: string, options?: any): Promise<any> {
     const init: any = {
       method: 'GET',
       agent: this.agent,
@@ -70,7 +74,7 @@ export default class ZyteClient {
     return { res, text };
   }
 
-  async post(url: string, options?: any) {
+  async post(url: string, options?: any): Promise<any> {
     const init = {
       method: 'POST',
       agent: this.agent,

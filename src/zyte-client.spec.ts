@@ -1,12 +1,12 @@
-import { expect } from 'chai';
 import ZyteClient from './zyte-client';
+import { expect } from 'chai';
 
 describe('ZyteClient', () => {
   let client: ZyteClient;
 
   let json: any;
 
-  beforeAll(() => {
+  before(() => {
     client = new ZyteClient();
   });
 
