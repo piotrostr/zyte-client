@@ -1,0 +1,9 @@
+{
+  "name": "zyte-client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/piotrostr/zyte-client.git",
+  "author": "Piotr <piotr.ostrowski@aol.com>",
+  "license": "MIT",
+  "private": false
+}
